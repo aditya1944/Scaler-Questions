@@ -17,7 +17,7 @@ int bfs(std::vector<std::vector<int> > &adjacencyList, int A){
     return 0;
 }
 
-int solve(int A, std::vector<vector<int> > &B) {
+int solve(int A, std::vector<std::vector<int> > &B) {
     //find if path exists from node 1 to node A;
     std::vector<std::vector<int> > adjacencyList(A+1);
     for(int index = 0;index<B.size();++index){
