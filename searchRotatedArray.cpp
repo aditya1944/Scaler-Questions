@@ -36,7 +36,7 @@ int search(const std::vector<int> &nums,int target){
             // 2. target lies in second part
             //cout<<left<<" "<<right<<endl;
             if(target>nums[0] || target<nums[mid]){
-                cout<<left<<" "<<right<<endl;
+                //cout<<left<<" "<<right<<endl;
                 right = mid - 1;
             }
             if(target>nums[mid] && target<nums[0]){
