@@ -1,7 +1,6 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
-using namespace std;
 bool compare(const std::string &log1, const std::string &log2){
     //determine if log1 and log2 is number or word
     bool log1IsAlpha = isalpha(log1.back());
@@ -31,7 +30,7 @@ bool compare(const std::string &log1, const std::string &log2){
     }
     return false;
 }
-std::vector<string> reorderLogFiles(std::vector<std::string>& logs) {
+std::vector<std::string> reorderLogFiles(std::vector<std::string>& logs) {
     std::stable_sort(logs.begin(),logs.end(),compare);
     return logs;
 }
@@ -39,7 +38,7 @@ int main(){
     std::vector<std::string>  vec = {"dig2 3 6","dig1 8 1 5 1"};
     vec = reorderLogFiles(vec);
     for(auto s: vec){
-        cout<<s<<endl;
+        std::cout<<s<<std::endl;
     }
     return 0;
 }
