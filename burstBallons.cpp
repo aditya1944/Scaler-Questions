@@ -1,39 +1,29 @@
 #include<iostream>
 #include<vector>
 #include<climits>
-int helper(std::vector<int> &A, int &maxValue){
-    const int n = A.size();
-    for(int index = 0;index<A.size();++index){
-        //delete the element at currIndex;
-        int currVal = A[index];
-        int prev,next;
-        if(index-1==0){
-            prev = 1;
-        }
-        else{
-            prev = A[index-1];
-        }
-        if(index+1==n){
-            next = 1;
-        }
-        else{
-            next = A[index+1];
-        }
-        A.erase(A.begin()+index);
-        currVal+=helper(A,maxValue);
-        maxValue = std::max(maxValue,currVal);
+int maxCoins(std::vector<int>& nums) {
+    if(nums.size()==0){
+        return 0;
     }
-}
-int solve(std::vector<int> &A){
-    int maxValue = INT_MIN;
-    helper(A,maxValue);
-    return maxValue;
-}
-int main(){
-    int N;
-    std::cin>>N;
-    std::vector<int> vec(N);
-    int output = solve(vec);
-    std::cout<<output<<std::endl;
-    return 0;
-}
+    if(nums.size()==1){
+        return nums[0];
+    }
+    const int size = nums.size();
+    std::vector<std::vector<int> >dp(size,std::vector<int>(size,0));
+    for(int length = 1;length<=size;++length){
+        for(int start = 0;start<=size-length;++start){
+            int end = start + length -1;
+            //we have to fill dp[start][end]
+            dp[start][end] = INT_MIN;
+            int windowLeftBoundary, windowRightBoundary;
+            windowLeftBoundary = (start-1<0)?1:nums[start-1];
+            windowRightBoundary = (end+1>=size)?1:nums[end+1];
+            for(int mid = start;mid<=end;++mid){    
+                int leftWindowValue = (mid-1<start)?0:dp[start][mid-1];
+                int rightWindowValue = (mid+1>end)?0:dp[mid+1][end];
+                dp[start][end] = std::max(dp[start][end], windowLeftBoundary*nums[mid]*windowRightBoundary + leftWindowValue + rightWindowValue);
+            }
+        }
+    }
+    return dp[0][size-1];
+}  
