@@ -32,6 +32,8 @@ void dikstra(std::vector<std::vector<std::pair<int,int> > >& adjacencyMatrix, st
     }
 }
 std::vector<int> solve(int A, std::vector<std::vector<int> > &B, int C){
+    //A is total no. of nodes
+    //C is  
     std::vector<std::vector<std::pair<int, int> > >adjacencyList(A);
     for(int index = 0;index<B.size();++index){
         int startVertex = B[index][0];
@@ -40,15 +42,10 @@ std::vector<int> solve(int A, std::vector<std::vector<int> > &B, int C){
         adjacencyList[startVertex].push_back(std::pair<int, int>(endVertex, weight));
     }
     std::priority_queue<Node,std::vector<Node>, CompareNode> minHeap;
-    for(int vertex = 0;vertex<A;++vertex){
-        Node n;
-        n.vertex = vertex;
-        n.distance = INT_MAX;
-        if(vertex==C){
-            n.distance = 0;
-        }
-        minHeap.push(n);
-    }
+    Node n;
+    n.vertex = C;
+    n.distance = 0;
+    minHeap.push(n);
     std::vector<int> minPath(A,INT_MAX);
     minPath[C] = 0;
     dikstra(adjacencyList,minPath, minHeap);
