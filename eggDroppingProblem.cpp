@@ -10,7 +10,7 @@ int solve(int N,int K){
         return 0;
     }
 
-    //if no. of floor is 1 and egg is not 0 then total attempts to find F is 0;
+    //if no. of floor is 1 and egg is not 0 then total attempts to find F is 1;
     //this is because -> just drop the egg from first floor to know the status of floor
     if(N==1){
         return 1;
