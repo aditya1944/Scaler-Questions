@@ -14,10 +14,10 @@ std::vector<std::vector<int> > zigzagLevelOrder(TreeNode* A){
     q.push(A);
     bool flag = true;
     while(!q.empty()){
+        int size = q.size();
+        std::vector<int> currentLevel(size);
+        int index = 0;
         if(flag){
-            int size = q.size();
-            std::vector<int> currentLevel(size);
-            int index = 0;
             while(index<size){
                 currentLevel[index] = q.front()->val;
                 if(q.front()->right){
@@ -30,13 +30,9 @@ std::vector<std::vector<int> > zigzagLevelOrder(TreeNode* A){
                 ++index;
             }
             std::reverse(currentLevel.begin(),currentLevel.end());
-            returnValue.push_back(currentLevel);
             flag = false;
         }
         else{
-            int size = q.size();
-            std::vector<int> currentLevel(size);
-            int index = 0;
             while(index<size){
                 currentLevel[index] = q.front()->val;
                 if(q.front()->right){
@@ -48,11 +44,9 @@ std::vector<std::vector<int> > zigzagLevelOrder(TreeNode* A){
                 q.pop();
                 ++index;
             }
-            //std::reverse(currentLevel.begin(),currentLevel.end());
-            returnValue.push_back(currentLevel);
-            flag = false;
             flag = true;
         }
+        returnValue.push_back(currentLevel);
     }
     return returnValue;
 }
