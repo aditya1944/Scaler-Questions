@@ -17,33 +17,22 @@ std::vector<std::vector<int> > zigzagLevelOrder(TreeNode* A){
         int size = q.size();
         std::vector<int> currentLevel(size);
         int index = 0;
-        if(flag){
-            while(index<size){
-                currentLevel[index] = q.front()->val;
-                if(q.front()->right){
-                    q.push(q.front()->right);
-                }
-                if(q.front()->left){
-                    q.push(q.front()->left);
-                }
-                q.pop();
-                ++index;
+        while(index<size){
+            currentLevel[index] = q.front()->val;
+            if(q.front()->right){
+                q.push(q.front()->right);
             }
+            if(q.front()->left){
+                q.push(q.front()->left);
+            }
+            q.pop();
+            ++index;
+        }
+        if(flag){
             std::reverse(currentLevel.begin(),currentLevel.end());
             flag = false;
         }
         else{
-            while(index<size){
-                currentLevel[index] = q.front()->val;
-                if(q.front()->right){
-                    q.push(q.front()->right);
-                }
-                if(q.front()->left){
-                    q.push(q.front()->left);
-                }
-                q.pop();
-                ++index;
-            }
             flag = true;
         }
         returnValue.push_back(currentLevel);
