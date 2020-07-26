@@ -12,7 +12,7 @@ int solve(int N){
             dp[index] = dp[index/2];
         }
         else{
-            dp[index] = dp[(index-1)/2] + 1;
+            dp[index] = dp[index-1] + 1;
         }
         sum+=dp[index];
         //std::cout<<dp[index]<<" ";
