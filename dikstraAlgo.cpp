@@ -18,14 +18,11 @@ void dikstra(std::vector<std::vector<std::pair<int,int> > >& adjacencyMatrix, st
         Node node = minHeap.top();
         minHeap.pop();
         int currentVertex = node.vertex;
-        for(int index = 0;index<adjacencyMatrix[currentVertex].size();++index){
-            if(!visited[adjacencyMatrix[currentVertex][index].first]){
-                int src = currentVertex,dest = adjacencyMatrix[currentVertex][index].first,weight = adjacencyMatrix[currentVertex][index].second;
+        for(auto neighbourNode: adjacencyMatrix[currentVertex]){
+            if(!visited[neighbourNode.first]){
+                int src = currentVertex,dest = neighbourNode.first,weight = neighbourNode.second;
                 minPath[dest] = std::min(minPath[dest],minPath[src] + weight);
-                Node neighbourNode;
-                neighbourNode.vertex = dest;
-                neighbourNode.distance = minPath[dest];
-                minHeap.push(neighbourNode);
+                minHeap.push({neighbourNode.first,neighbourNode.second});
             }
         }
         visited[currentVertex] = true;
@@ -42,10 +39,7 @@ std::vector<int> solve(int A, std::vector<std::vector<int> > &B, int C){
         adjacencyList[startVertex].push_back(std::pair<int, int>(endVertex, weight));
     }
     std::priority_queue<Node,std::vector<Node>, CompareNode> minHeap;
-    Node n;
-    n.vertex = C;
-    n.distance = 0;
-    minHeap.push(n);
+    minHeap.push({C,0});
     std::vector<int> minPath(A,INT_MAX);
     minPath[C] = 0;
     dikstra(adjacencyList,minPath, minHeap);
